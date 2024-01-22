@@ -5,7 +5,7 @@ import numpy
 
 
 def getData():
-    # numpy.zeros()
+
     repsArr = []
     weights = []
     strData = []
@@ -43,9 +43,10 @@ def getData():
 def plotData(data):
     for key in data.keys():
         lst = [(x, data[key][x]) for x in data[key]]
+        if len(lst) < 5:
+            continue
         xaxis = numpy.take(numpy.array(lst), 0, axis=1)
         yaxis = numpy.take(numpy.array(lst), 1, axis=1)
-        print(key, yaxis)
         plt.scatter(numpy.array(xaxis, dtype=numpy.datetime64), numpy.array(yaxis, dtype=numpy.float_), label=key)
 
         plt.title(key)
