@@ -24,11 +24,12 @@ def getData():
                 repsArr.append(reps)
         numpyWeights = numpy.array(weights)
         numpyReps = numpy.array(repsArr)
-
+        
+        # calculate 1rm array 
         oneRepMax = numpy.round(numpy.divide(numpyWeights, 1.0278 + (-0.0278 * numpyReps)), decimals=1)
 
         ORMDict = {}
-
+        # create dict {"name" : {"date" : 1rm}}
         for i in range(len(oneRepMax)):
             if strData[i][1] not in ORMDict.keys():
                 ORMDict[strData[i][1]] = {}
@@ -45,8 +46,8 @@ def plotData(data):
         lst = [(x, data[key][x]) for x in data[key]]
         if len(lst) < 5:
             continue
-        xaxis = numpy.take(numpy.array(lst), 0, axis=1)
-        yaxis = numpy.take(numpy.array(lst), 1, axis=1)
+        xaxis = numpy.take(numpy.array(lst), 0, axis=1) # dates
+        yaxis = numpy.take(numpy.array(lst), 1, axis=1) # 1rm
         plt.scatter(numpy.array(xaxis, dtype=numpy.datetime64), numpy.array(yaxis, dtype=numpy.float_), label=key)
 
         plt.title(key)
